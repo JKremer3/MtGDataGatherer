@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MtgApiManager.Lib.Core;
-using MtgApiManager.Lib.Service;
+using MTGDataGatherer.service;
 
 namespace MTGDataGatherer.Controllers
 {
@@ -14,20 +12,18 @@ namespace MTGDataGatherer.Controllers
     public class CardCalculatorController : ControllerBase
     {
         private readonly ILogger<CardCalculatorController> _logger;
-        private IMtgServiceProvider _serviceProvider;
-        private ICardService _cardService;
-        public CardCalculatorController(ILogger<CardCalculatorController> logger, IMtgServiceProvider serviceProvider)
+        private ICardFetcher _cardFetcher;
+        public CardCalculatorController(ILogger<CardCalculatorController> logger, ICardFetcher cardFetcher)
         {
             _logger = logger;
-            _serviceProvider = serviceProvider;
-            _cardService = _serviceProvider.GetCardService();
+            _cardFetcher = cardFetcher;
         }
 
         [HttpGet]
         [Route("cards/cardtypes")]
         public async Task<IOperationResult<List<string>>> GetCardTypes()
         {
-            return await _cardService.GetCardTypesAsync();
+            return await _cardFetcher.GetCardTypesAsync();
         }
     }
 }
