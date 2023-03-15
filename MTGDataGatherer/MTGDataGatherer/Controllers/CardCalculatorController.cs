@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MtgApiManager.Lib.Core;
+using MtgApiManager.Lib.Model;
 using MTGDataGatherer.service;
 
 namespace MTGDataGatherer.Controllers
@@ -24,6 +25,13 @@ namespace MTGDataGatherer.Controllers
         public async Task<IOperationResult<List<string>>> GetCardTypes()
         {
             return await _cardFetcher.GetCardTypesAsync();
+        }
+        
+        [HttpGet]
+        [Route("cards/{cardName}")]
+        public async Task<CardInfo> GetAllCards(string cardName)
+        {
+            return await _cardFetcher.GetCardByNameAsync(cardName);
         }
     }
 }

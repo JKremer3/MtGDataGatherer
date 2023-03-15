@@ -20,5 +20,19 @@ namespace MTGDataGatherer.service
         {
             return await _cardService.GetCardTypesAsync();
         }
+
+        public async Task<CardInfo> GetCardByNameAsync(string cardName)
+        {
+            var result = await _cardService.Where(x => x.Name, cardName).AllAsync();
+
+            if (result.IsSuccess)
+            {
+                return  new CardInfo(result.Value[0]);
+            }
+            else
+            {
+                return new CardInfo();
+            }
+        }
     }
 }
