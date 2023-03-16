@@ -9,6 +9,10 @@ namespace MTGDataGatherer.service
     {
         public Task<IOperationResult<List<string>>> GetCardTypesAsync();
 
-        public Task<CardInfo> GetCardByNameAsync(string cardName);
+        public Task<CardData> GetCardByNameAsync(string cardName);
+
+        public Task<List<CardData>> GetCardListByNameAsync(List<string> cards);
+
+        public Task<string> GetManaData(List<string> cards);
     }
 }
