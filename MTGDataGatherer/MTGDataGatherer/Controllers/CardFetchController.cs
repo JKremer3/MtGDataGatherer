@@ -46,5 +46,12 @@ namespace MTGDataGatherer.Controllers
         {
             return await _cardFetcher.GetManaData(cards);
         }
+
+       /* [HttpPost]
+        [Route("cards/list/mana")]
+        public async Task<string> GetMana([FromBody] string card)
+        {
+            return await _cardFetcher.GetManaData(card);
+        }*/
     }
 }
