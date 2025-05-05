@@ -9,13 +9,12 @@ namespace MTGDataGatherer.service
 {
     public class CardFetcher : ICardFetcher
     {
-        private IMtgServiceProvider _serviceProvider;
-        private ICardService _cardService;
-        private ILogger<CardFetcher> _logger; 
+        private readonly ICardService _cardService;
+        private readonly ILogger<CardFetcher> _logger; 
+        // ReSharper disable once ConvertToPrimaryConstructor
         public CardFetcher(IMtgServiceProvider serviceProvider, ILogger<CardFetcher> logger)
         {
-            _serviceProvider = serviceProvider;
-            _cardService = _serviceProvider.GetCardService();
+            _cardService = serviceProvider.GetCardService();
             _logger = logger;
         }
 
@@ -67,8 +66,8 @@ namespace MTGDataGatherer.service
             var jret = new
             {
                 AverageCMC = data.AverageCmc,
-                ManaRatio = data.ManaRatio,
-                ManaCount = data.ManaCount
+                data.ManaRatio,
+                data.ManaCount
             };
 
             return JsonConvert.SerializeObject(jret);
